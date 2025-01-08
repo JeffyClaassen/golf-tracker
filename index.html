@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golf Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>2025 Golf Tracker</h1>
+        
+        <div class="input-section">
+            <h2>Add New Stats</h2>
+            <div class="stat-inputs">
+                <div class="input-group">
+                    <label for="course">Course:</label>
+                    <input type="text" id="course" placeholder="Course Name">
+                </div>
+                <div class="input-group">
+                    <label for="score">Score:</label>
+                    <input type="number" id="score" min="0" value="0">
+                </div>
+                <div class="input-group">
+                    <label for="birdies">Birdies:</label>
+                    <input type="number" id="birdies" min="0" value="0">
+                </div>
+                <div class="input-group">
+                    <label for="pars">Pars:</label>
+                    <input type="number" id="pars" min="0" value="0">
+                </div>
+                <div class="input-group">
+                    <label for="bogeys">Bogeys:</label>
+                    <input type="number" id="bogeys" min="0" value="0">
+                </div>
+                <div class="input-group">
+                    <label for="doubles">Doubles:</label>
+                    <input type="number" id="doubles" min="0" value="0">
+                </div>
+                <div class="input-group">
+                    <label for="triples">Triples+:</label>
+                    <input type="number" id="triples" min="0" value="0">
+                </div>
+                <div class="input-group">
+                    <label for="penalties">Penalties:</label>
+                    <input type="number" id="penalties" min="0" value="0">
+                </div>
+                <div class="input-group checkbox-group">
+                    <label for="fullLength">
+                        <input type="checkbox" id="fullLength" checked>
+                        Full Length Course (Par 70+)
+                    </label>
+                </div>
+            </div>
+            <button onclick="addStats()">Add Stats</button>
+        </div>
+
+        <div class="stats-display">
+            <h2>Total Stats</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Rounds</h3>
+                    <p id="total-rounds">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Shots</h3>
+                    <p id="total-score">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Birdies</h3>
+                    <p id="total-birdies">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Pars</h3>
+                    <p id="total-pars">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Bogeys</h3>
+                    <p id="total-bogeys">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Doubles</h3>
+                    <p id="total-doubles">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Triples+</h3>
+                    <p id="total-triples">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Penalties</h3>
+                    <p id="total-penalties">0</p>
+                </div>
+            </div>
+            <div class="chart-container">
+                <canvas id="statsChart"></canvas>
+            </div>
+        </div>
+
+        <div class="goals-section">
+            <h2>2024 Goals Progress</h2>
+            <div class="goals-grid">
+                <div class="goal-card">
+                    <h3>Rounds Played</h3>
+                    <div class="goal-progress">
+                        <p><span id="rounds-progress">0</span> / <span id="rounds-goal">30</span></p>
+                        <div class="progress-bar">
+                            <div id="rounds-bar" class="progress"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="goal-card">
+                    <h3>Rounds Under 90</h3>
+                    <div class="goal-progress">
+                        <p><span id="under90-progress">0</span> / <span id="under90-goal">15</span></p>
+                        <div class="progress-bar">
+                            <div id="under90-bar" class="progress"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="goal-card">
+                    <h3>Rounds Under 85</h3>
+                    <div class="goal-progress">
+                        <p><span id="under85-progress">0</span> / <span id="under85-goal">5</span></p>
+                        <div class="progress-bar">
+                            <div id="under85-bar" class="progress"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="goal-card">
+                    <h3>Clean Rounds</h3>
+                    <div class="goal-progress">
+                        <p><span id="clean-progress">0</span> / <span id="clean-goal">10</span></p>
+                        <div class="progress-bar">
+                            <div id="clean-bar" class="progress"></div>
+                        </div>
+                        <small>No worse than double bogey</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="history-section">
+            <h2>History</h2>
+            <div class="table-container">
+                <table id="historyTable">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Course</th>
+                            <th>Score</th>
+                            <th>Birdies</th>
+                            <th>Pars</th>
+                            <th>Bogeys</th>
+                            <th>Doubles</th>
+                            <th>Triples+</th>
+                            <th>Penalties</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="db.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
